@@ -24,8 +24,8 @@
   <script>
     function generateTruthTable() {
       const formula = document.getElementById("formula").value.trim();
-      const propositionalSymbols = formula.match(/[a-zA-Z]/g);
-      const numProps = new Set(propositionalSymbols).size;
+      const propSymbols = formula.match(/[a-zA-Z]/g);
+      const numProps = new Set(propSymbols).size;
 
       if (!isValid(formula)) {
         document.getElementById("truth-table-container").innerHTML = "Invalid formula. Please check your input.";
@@ -62,7 +62,7 @@
 
       for (const comb of combs) {
         const row = comb.slice();
-        const result = eval(formula, comb);
+        const result = evaluateExpression(formula, comb);
         row.push(result);
         truthTable.push(row);
       }
@@ -87,19 +87,20 @@
       return combs;
     }
 
-    function eval(formula, values) {
-      const propSymbols = formula.match(/[a-zA-Z]/g);
+    function evaluateExpression(expression, values) {
+      const propSymbols = expression.match(/[a-zA-Z]/g);
       const substitutions = new Map();
 
       for (let i = 0; i < propSymbols.length; i++) {
         substitutions.set(propSymbols[i], values[i]);
       }
 
-      return evaluateExpression(formula, substitutions);
-    }
-
-    function evaluateExpression(expression, substitutions) {
-      return eval(expression);
+      try {
+        return eval(expression);
+      } catch (error) {
+        console.error('Error evaluating expression:', error);
+        return false;
+      }
     }
 
     function displayTruthTable(truthTable) {
@@ -114,8 +115,9 @@
         th.textContent = String.fromCharCode(65 + i);
         headerRow.appendChild(th);
       }
-      th.textContent = "Result";
-      headerRow.appendChild(th);
+      const resultTh = document.createElement("th");
+      resultTh.textContent = "Result";
+      headerRow.appendChild(resultTh);
       table.appendChild(headerRow);
 
       for (const row of truthTable) {
