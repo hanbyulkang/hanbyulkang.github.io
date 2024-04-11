@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Philosophy Truth Table Generator</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h1>Truth Table Generator</h1>
+  <p>Enter your logic using ~, v, &amp;, (, and ):</p>
+  <input type="text" id="formula" placeholder="e.g. (A & B) v ~C">
+  <button onclick="generateTruthTable()">Generate Truth Table</button>
+  <div id="truth-table-container"></div>
+
+  <script>
+    function generateTruthTable() {
+      const formula = document.getElementById("formula").value.trim();
+      const propositionalSymbols = formula.match(/[a-zA-Z]/g);
+      const numProps = new Set(propositionalSymbols).size;
+
+      if (!isValid(formula)) {
+        document.getElementById("truth-table-container").innerHTML = "Invalid formula. Please check your input.";
+        return;
+      }
+
+      const truthTable = generateTruthTableData(formula, numProps);
+      displayTruthTable(truthTable);
+    }
+
+    function isValid(formula) {
+      const validReg = /^[a-zA-Z~v&\(\)]+$/;
+      if (!validReg.test(formula)) {
+        return false;
+      }
+
+      let openCount = 0;
+      for (let i = 0; i < formula.length; i++) {
+        if (formula[i] === '(') {
+          openCount++;
+        } else if (formula[i] === ')') {
+          openCount--;
+          if (openCount < 0) {
+            return false;
+          }
+        }
+      }
+      return openCount === 0;
+    }
+
+    function generateTruthTableData(formula, numProps) {
+      const truthTable = [];
+      const combs = generateAllcombs(numProps);
+
+      for (const comb of combs) {
+        const row = comb.slice();
+        const result = eval(formula, comb);
+        row.push(result);
+        truthTable.push(row);
+      }
+
+      return truthTable;
+    }
+
+    function generateAllcombs(numProps) {
+      const combs = [];
+      const maxValue = Math.pow(2, numProps);
+
+      for (let i = 0; i < maxValue; i++) {
+        const comb = [];
+        let value = i;
+        for (let j = 0; j < numProps; j++) {
+          comb.push(value % 2 === 1);
+          value = Math.floor(value / 2);
+        }
+        combs.push(comb.reverse());
+      }
+
+      return combs;
+    }
+
+    function eval(formula, values) {
+      const propSymbols = formula.match(/[a-zA-Z]/g);
+      const substitutions = new Map();
+
+      for (let i = 0; i < propSymbols.length; i++) {
+        substitutions.set(propSymbols[i], values[i]);
+      }
+
+      return evaluateExpression(formula, substitutions);
+    }
+
+    function evaluateExpression(expression, substitutions) {
+      return eval(expression);
+    }
+
+    function displayTruthTable(truthTable) {
+      const container = document.getElementById("truth-table-container");
+      container.innerHTML = "";
+
+      const table = document.createElement("table");
+      const headerRow = document.createElement("tr");
+
+      for (let i = 0; i < truthTable[0].length; i++) {
+        const th = document.createElement("th");
+        th.textContent = String.fromCharCode(65 + i);
+        headerRow.appendChild(th);
+      }
+      th.textContent = "Result";
+      headerRow.appendChild(th);
+      table.appendChild(headerRow);
+
+      for (const row of truthTable) {
+        const tr = document.createElement("tr");
+        for (const value of row) {
+          const td = document.createElement("td");
+          td.textContent = value.toString();
+          tr.appendChild(td);
+        }
+        table.appendChild(tr);
+      }
+
+      container.appendChild(table);
+    }
+  </script>
+</body>
+</html>
