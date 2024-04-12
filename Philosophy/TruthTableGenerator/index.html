@@ -1,3 +1,8 @@
+<!--- 
+Date: Apr-12-2024
+Version: 1.0.2
+Written by: Hanbyul Kang
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,28 +21,28 @@
 </head>
 <body>
   <h1>Truth Table Generator</h1>
-  <p>Enter your logic using ~, v, &amp;, (, and ):</p>
+  <p>Enter your logic using ~, v, &, (, and ). Your sentence(s) must be single uppercase alphabet.:</p>
   <input type="text" id="formula" placeholder="e.g. (A & B) v ~C">
   <button onclick="generateTruthTable()">Generate Truth Table</button>
   <div id="truth-table-container"></div>
 
   <script>
     function generateTruthTable() {
-      const formula = document.getElementById("formula").value.trim();
-      const propSymbols = formula.match(/[a-zA-Z]/g);
-      const numProps = new Set(propSymbols).size;
+      const formula = document.getElementById("formula").value.trim().replace(/\s/g, '');
+      const propSymbols = formula.match(/[A-Z]/g);
+      const numProps = propSymbols ? propSymbols.length : 0;
 
       if (!isValid(formula)) {
-        document.getElementById("truth-table-container").innerHTML = "Invalid formula. Please check your input.";
+        document.getElementById("truth-table-container").innerHTML = "Invalid Formula. Please check your input.";
         return;
       }
 
       const truthTable = generateTruthTableData(formula, numProps);
-      displayTruthTable(truthTable);
+      displayTruthTable(truthTable, numProps, propSymbols);
     }
 
     function isValid(formula) {
-      const validReg = /^[a-zA-Z~v&\(\)]+$/;
+      const validReg = /^[A-Z~v&()]+$/;
       if (!validReg.test(formula)) {
         return false;
       }
@@ -53,14 +58,15 @@
           }
         }
       }
+
       return openCount === 0;
     }
 
     function generateTruthTableData(formula, numProps) {
       const truthTable = [];
-      const combs = generateAllcombs(numProps);
+      const combs = generateAllCombinations(numProps);
 
-      for (const comb of combs) {
+      for (const comb of combs.reverse()) {
         const row = comb.slice();
         const result = evaluateExpression(formula, comb);
         row.push(result);
@@ -70,7 +76,7 @@
       return truthTable;
     }
 
-    function generateAllcombs(numProps) {
+    function generateAllCombinations(numProps) {
       const combs = [];
       const maxValue = Math.pow(2, numProps);
 
@@ -81,43 +87,58 @@
           comb.push(value % 2 === 1);
           value = Math.floor(value / 2);
         }
-        combs.push(comb.reverse());
+        combs.push(comb.slice().reverse());
       }
 
       return combs;
     }
 
     function evaluateExpression(expression, values) {
-      const propSymbols = expression.match(/[a-zA-Z]/g);
+      const propSymbols = expression.match(/[A-Z]/g);
       const substitutions = new Map();
 
       for (let i = 0; i < propSymbols.length; i++) {
         substitutions.set(propSymbols[i], values[i]);
       }
 
+      const evaluatedExpression = expression.replace(/[A-Z~&v]/g, (match) => {
+        if (match === '~') {
+          return '!';
+        } else if (match === '&') {
+          return '&&';
+        } else if (match === 'v') {
+          return '||';
+        } else {
+          return `substitutions.get('${match}')`;
+        }
+      });
+
       try {
-        return eval(expression);
+        return eval(evaluatedExpression);
       } catch (error) {
         console.error('Error evaluating expression:', error);
         return false;
       }
     }
 
-    function displayTruthTable(truthTable) {
+    function displayTruthTable(truthTable, numProps, propSymbols) {
       const container = document.getElementById("truth-table-container");
       container.innerHTML = "";
 
       const table = document.createElement("table");
       const headerRow = document.createElement("tr");
 
-      for (let i = 0; i < truthTable[0].length; i++) {
+      for (const prop of propSymbols) {
         const th = document.createElement("th");
-        th.textContent = String.fromCharCode(65 + i);
+        th.textContent = prop;
         headerRow.appendChild(th);
       }
-      const resultTh = document.createElement("th");
-      resultTh.textContent = "Result";
-      headerRow.appendChild(resultTh);
+
+      if (numProps > 1) {
+        const resultTh = document.createElement("th");
+        resultTh.textContent = "Result";
+        headerRow.appendChild(resultTh);
+      }
       table.appendChild(headerRow);
 
       for (const row of truthTable) {
