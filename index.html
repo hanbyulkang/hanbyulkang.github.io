@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Hanbyul Kang | App Privacy Policies</title>
-  <meta name="description" content="Privacy policies for mobile apps created by Hanbyul Kang, including DRIFT." />
+  <meta name="description" content="Privacy policies for apps created by Hanbyul Kang, including DRIFT and BiasLens." />
   <meta name="robots" content="index, follow" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Hanbyul Kang | App Privacy Policies" />
-  <meta property="og:description" content="Privacy policies for mobile apps created by Hanbyul Kang, including DRIFT." />
+  <meta property="og:description" content="Privacy policies for apps created by Hanbyul Kang, including DRIFT and BiasLens." />
   <meta property="og:site_name" content="Hanbyul Kang | App Privacy Policies" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Hanbyul Kang | App Privacy Policies" />
-  <meta name="twitter:description" content="Privacy policies for mobile apps created by Hanbyul Kang, including DRIFT." />
+  <meta name="twitter:description" content="Privacy policies for apps created by Hanbyul Kang, including DRIFT and BiasLens." />
   <style>
     :root {
       --bg: #09111f;
@@ -437,6 +437,7 @@
         <a href="#home">Home</a>
         <a href="#apps">Apps</a>
         <a href="#drift">DRIFT</a>
+        <a href="#biaslens">BiasLens</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -453,6 +454,7 @@
         </p>
         <div class="hero-actions">
           <a class="button primary" href="#drift">Read DRIFT policy</a>
+          <a class="button primary" href="#biaslens">Read BiasLens policy</a>
           <a class="button" href="#apps">Browse apps</a>
         </div>
       </div>
@@ -462,7 +464,7 @@
       <div class="section-header">
         <div>
           <h2>Apps</h2>
-          <p>Each app has its own dedicated privacy policy. DRIFT is currently listed below, and more apps can be added in the same format later.</p>
+          <p>Each app has its own dedicated privacy policy section below.</p>
         </div>
       </div>
 
@@ -481,6 +483,24 @@
               <li class="tag">No ads</li>
               <li class="tag">No tracking</li>
               <li class="tag">Local device storage only</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="app-card" aria-labelledby="biaslens-card-title">
+          <div class="app-icon" aria-hidden="true" style="background: linear-gradient(155deg, rgba(99,179,237,0.28), rgba(72,213,255,0.18)); color: #48d5ff;">BL</div>
+          <div>
+            <div class="app-top">
+              <h3 id="biaslens-card-title">BiasLens</h3>
+              <a class="button" href="#biaslens">Open policy</a>
+            </div>
+            <p class="app-meta">Chrome extension that detects news bias using on-device machine learning — no data ever leaves your browser.</p>
+            <ul class="tag-list" aria-label="BiasLens privacy highlights">
+              <li class="tag">No account</li>
+              <li class="tag">No analytics</li>
+              <li class="tag">No tracking</li>
+              <li class="tag">On-device ML only</li>
+              <li class="tag">No data transmitted</li>
             </ul>
           </div>
         </article>
@@ -577,6 +597,128 @@
               <div class="summary-item">
                 <strong>Storage</strong>
                 <span>On-device only</span>
+              </div>
+              <div class="summary-item">
+                <strong>Tracking</strong>
+                <span>None</span>
+              </div>
+              <div class="summary-item">
+                <strong>Account</strong>
+                <span>Not required</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </section>
+
+    <section class="section shell" id="biaslens">
+      <article class="policy-card">
+        <div class="policy-head">
+          <div>
+            <div class="eyebrow">Chrome Extension Privacy Policy</div>
+            <h2>BiasLens — Privacy Policy</h2>
+          </div>
+          <div class="updated">Last updated: May 2026</div>
+        </div>
+
+        <div class="policy-grid">
+          <div class="content-stack">
+            <section class="panel" id="bl-overview">
+              <h3>Overview</h3>
+              <p>
+                BiasLens is a Chrome extension that detects political bias and sentiment in news articles using a machine learning
+                model bundled directly with the extension. All analysis is performed entirely within your browser.
+                No article text, browsing history, or personal data is ever collected, stored on a server, or transmitted anywhere.
+              </p>
+            </section>
+
+            <section class="panel" id="bl-what-we-store">
+              <h3>What We Store Locally</h3>
+              <p>
+                The only data stored is saved locally on your device via <code style="font-family:monospace;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:5px;">chrome.storage.local</code>
+                and is never transmitted to any server:
+              </p>
+              <ul>
+                <li>Your auto-highlight preference (on / off)</li>
+                <li>Your list of allowed sites for auto-highlighting</li>
+              </ul>
+              <p>This data is stored solely to preserve your preferences between browser sessions.</p>
+            </section>
+
+            <section class="panel" id="bl-permissions">
+              <h3>Permissions</h3>
+              <p>BiasLens requests the following Chrome permissions, each used only for its stated purpose:</p>
+              <ul>
+                <li><strong>activeTab</strong> — reads the text content of the page you are currently viewing in order to run bias analysis.</li>
+                <li><strong>storage</strong> — saves your auto-highlight and site allowlist preferences locally on your device.</li>
+                <li><strong>host permissions (news sites)</strong> — allows the extension to run its content script on the news sites you choose to enable.</li>
+              </ul>
+              <p>No permission is used to collect, aggregate, or transmit your data.</p>
+            </section>
+
+            <section class="panel" id="bl-no-account">
+              <h3>No Account Required</h3>
+              <p>BiasLens does not require an account, email address, sign-in, or any form of registration to use.</p>
+            </section>
+
+            <section class="panel" id="bl-third-party">
+              <h3>Third-Party Services</h3>
+              <p>
+                BiasLens contains no analytics, no advertising networks, no crash reporting, and no third-party scripts.
+                The extension makes no network requests other than loading its own bundled model files
+                (<code style="font-family:monospace;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:5px;">model.json</code>,
+                <code style="font-family:monospace;background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:5px;">sentiment.json</code>)
+                from its own extension package — not from any external server.
+              </p>
+            </section>
+
+            <section class="panel" id="bl-data-deletion">
+              <h3>Data Deletion</h3>
+              <p>
+                All locally stored preferences can be deleted at any time by removing the BiasLens extension from Chrome
+                (Chrome menu › More tools › Extensions › Remove). Uninstalling the extension permanently deletes all associated local data.
+              </p>
+            </section>
+
+            <section class="panel" id="bl-changes">
+              <h3>Changes to This Policy</h3>
+              <p>
+                If this policy is updated, the revised version will be published here with a new "Last updated" date.
+                Continued use of the extension after changes constitutes acceptance of the updated policy.
+              </p>
+            </section>
+
+            <section class="panel" id="bl-contact">
+              <h3>Contact</h3>
+              <p>For questions or concerns about this privacy policy, contact: <a href="mailto:kahaby0805@gmail.com">kahaby0805@gmail.com</a></p>
+            </section>
+          </div>
+
+          <aside class="toc panel" aria-label="BiasLens policy navigation">
+            <h3>On this page</h3>
+            <ul>
+              <li><a href="#bl-overview">Overview</a></li>
+              <li><a href="#bl-what-we-store">What We Store Locally</a></li>
+              <li><a href="#bl-permissions">Permissions</a></li>
+              <li><a href="#bl-no-account">No Account Required</a></li>
+              <li><a href="#bl-third-party">Third-Party Services</a></li>
+              <li><a href="#bl-data-deletion">Data Deletion</a></li>
+              <li><a href="#bl-changes">Changes to This Policy</a></li>
+              <li><a href="#bl-contact">Contact</a></li>
+            </ul>
+            <div class="summary-list" style="margin-top:18px;">
+              <div class="summary-item">
+                <strong>Personal data</strong>
+                <span>None collected</span>
+              </div>
+              <div class="summary-item">
+                <strong>Article text</strong>
+                <span>Stays on your device</span>
+              </div>
+              <div class="summary-item">
+                <strong>Network requests</strong>
+                <span>None to external servers</span>
               </div>
               <div class="summary-item">
                 <strong>Tracking</strong>
